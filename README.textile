@@ -1,0 +1,18 @@
+h2. Futures Exploration
+
+This project aims to explore the different implementations of futures available
+to Java. The following libraries/languages are planned.
+
+* Java 7 Futures
+* GPars Dataflow
+* Google Guava Listenable Futures
+* Scala Futures
+* Twitter Finagle Futures
+
+h2. Example Application
+
+The application is derived from the stock exchange application in Chapter 5 of
+the Microsoft Parallel Programming with .NET book. As such, this repository is
+also licensed under the same license, i.e., the Microsoft Patterns and Practices
+license.
+

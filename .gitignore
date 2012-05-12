@@ -1,0 +1,11 @@
+bin
+build
+out
+.gradle
+gradle-app.setting
+.classpath
+.project
+.settings
+.idea
+FuturesExploration.iml
+*~

@@ -1,0 +1,10 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile group: 'com.google.guava', name: 'guava', version: '12.0'
+}
