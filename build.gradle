@@ -1,6 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
 
+sourceCompatibility= JavaVersion.VERSION_1_7
+
 repositories {
   mavenCentral()
 }

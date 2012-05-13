@@ -5,6 +5,7 @@ import edu.illinois.nchen.base.businessModels.StockAnalysisCollection;
 import edu.illinois.nchen.base.businessModels.StockDataCollection;
 
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 public class SequentialAnalysisEngine extends AnalysisEngine {
     @Override
@@ -23,7 +24,7 @@ public class SequentialAnalysisEngine extends AnalysisEngine {
     }
 
     @Override
-    public void doAnalysisParallel() {
+    public void doAnalysisParallel() throws ExecutionException, InterruptedException {
         System.out.println("This version cannot handle parallel analysis");
     }
 }

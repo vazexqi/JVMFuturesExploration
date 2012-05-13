@@ -39,7 +39,7 @@ public abstract class AnalysisEngine implements IAnalysisEngine {
         return stocks;
     }
 
-    StockDataCollection loadNyseData() {
+    protected StockDataCollection loadNyseData() {
         try {
             Work.performIOOperation(3);
             System.out.println("Done loading NYSE...");
@@ -50,7 +50,7 @@ public abstract class AnalysisEngine implements IAnalysisEngine {
     }
 
 
-    StockDataCollection loadNasdaqData() {
+    protected StockDataCollection loadNasdaqData() {
         try {
             Work.performIOOperation(2 * speed);
             System.out.println("Done loading NASDAQ...");
@@ -60,7 +60,7 @@ public abstract class AnalysisEngine implements IAnalysisEngine {
         }
     }
 
-    StockDataCollection loadFedHistoricalData() {
+    protected StockDataCollection loadFedHistoricalData() {
         try {
             Work.performIOOperation(3 * speed);
             System.out.println("Done loading Fed...");
@@ -70,7 +70,7 @@ public abstract class AnalysisEngine implements IAnalysisEngine {
         }
     }
 
-    StockDataCollection mergeMarketData(List<StockDataCollection> allMarketData) {
+    protected StockDataCollection mergeMarketData(List<StockDataCollection> allMarketData) {
         Work.performCPUOperation(2 * speed);
         List<StockData> accumulator = new ArrayList<StockData>();
         for (StockDataCollection collection : allMarketData) {
@@ -80,25 +80,25 @@ public abstract class AnalysisEngine implements IAnalysisEngine {
         return new StockDataCollection(accumulator);
     }
 
-    StockDataCollection normalizeData(StockDataCollection marketData) {
+    protected StockDataCollection normalizeData(StockDataCollection marketData) {
         Work.performCPUOperation(2 * speed);
         System.out.println("Done normalizing data...");
         return new StockDataCollection(marketData);
     }
 
-    StockAnalysisCollection analyzeData(StockDataCollection data) {
+    protected StockAnalysisCollection analyzeData(StockDataCollection data) {
         Work.performCPUOperation(2 * speed);
         System.out.println("Done analyzing data...");
         return MarketAnalyer.run(data);
     }
 
-    MarketModel runModel(StockAnalysisCollection data) {
+    protected MarketModel runModel(StockAnalysisCollection data) {
         Work.performCPUOperation(2 * speed);
         System.out.println("Done running model...");
         return MarketModeler.run(data);
     }
 
-    MarketRecommendation compareModels(List<MarketModel> models) {
+    protected MarketRecommendation compareModels(List<MarketModel> models) {
         Work.performCPUOperation(2 * speed );
         System.out.println("Done comparing models...");
         return ModelComparer.run(models.toArray(new MarketModel[0]));
