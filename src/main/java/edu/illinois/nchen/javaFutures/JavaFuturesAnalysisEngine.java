@@ -4,6 +4,7 @@ import com.google.common.base.Stopwatch;
 import edu.illinois.nchen.base.IAnalysisEngine;
 import edu.illinois.nchen.base.SequentialAnalysisEngine;
 import edu.illinois.nchen.base.businessModels.MarketModel;
+import edu.illinois.nchen.base.businessModels.MarketRecommendation;
 import edu.illinois.nchen.base.businessModels.StockAnalysisCollection;
 import edu.illinois.nchen.base.businessModels.StockDataCollection;
 
@@ -74,7 +75,7 @@ public class JavaFuturesAnalysisEngine extends SequentialAnalysisEngine {
             }
         });
 
-        Future<MarketModel> modeledMarketData = executor.submit(new Callable<MarketModel>() {
+        final Future<MarketModel> modeledMarketData = executor.submit(new Callable<MarketModel>() {
             @Override
             public MarketModel call() throws Exception {
                 return runModel(analyzedStockData.get());
@@ -88,14 +89,21 @@ public class JavaFuturesAnalysisEngine extends SequentialAnalysisEngine {
             }
         });
 
-        Future<MarketModel> modeledHistoricalData = executor.submit(new Callable<MarketModel>() {
+        final Future<MarketModel> modeledHistoricalData = executor.submit(new Callable<MarketModel>() {
             @Override
             public MarketModel call() throws Exception {
                 return runModel(analyzedHistoricalData.get());
             }
         });
 
-        compareModels(Arrays.asList(modeledMarketData.get(), modeledHistoricalData.get()));
+        Future<MarketRecommendation> results = executor.submit(new Callable<MarketRecommendation>() {
+            @Override
+            public MarketRecommendation call() throws Exception {
+                return compareModels(Arrays.asList(modeledMarketData.get(), modeledHistoricalData.get()));
+            }
+        });
+
+        results.get();
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
