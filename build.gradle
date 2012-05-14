@@ -5,8 +5,12 @@ sourceCompatibility= JavaVersion.VERSION_1_7
 
 repositories {
   mavenCentral()
+  maven {
+    url 'http://snapshots.repository.codehaus.org'
+  }
 }
 
 dependencies {
   compile group: 'com.google.guava', name: 'guava', version: '12.0'
+  groovy group: 'org.codehaus.gpars', name: 'gpars', version: '1.0-SNAPSHOT'
 }
