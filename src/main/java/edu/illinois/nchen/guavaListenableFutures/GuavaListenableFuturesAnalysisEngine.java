@@ -1,5 +1,6 @@
 package edu.illinois.nchen.guavaListenableFutures;
 
+import com.google.common.base.Function;
 import com.google.common.base.Stopwatch;
 import com.google.common.util.concurrent.*;
 import edu.illinois.nchen.base.IAnalysisEngine;
@@ -22,6 +23,10 @@ public class GuavaListenableFuturesAnalysisEngine extends SequentialAnalysisEngi
         this.executor = MoreExecutors.listeningDecorator(new ForkJoinPool());
     }
 
+    // NOTES - Current problems/limitations/inconveniences with the current way:
+    // 1) Need to remember to create a ListeningExecutorService
+    // 2) Slightly longer method signatures for Function but the input/output types are much clearer
+    // 3) Seems to better mimic the original C# example (although lacking in syntax)
     @Override
     public void doAnalysisParallel() throws ExecutionException, InterruptedException {
 
@@ -39,29 +44,17 @@ public class GuavaListenableFuturesAnalysisEngine extends SequentialAnalysisEngi
             }
         });
 
-        ListenableFuture<List<StockDataCollection>> marketData = Futures.successfulAsList(nyseData, nasdaqData);
-
-        final ListenableFuture<StockDataCollection> mergedMarketData = Futures.transform(marketData, new AsyncFunction<List<StockDataCollection>, StockDataCollection>() {
+        final ListenableFuture<StockDataCollection> mergedMarketData = Futures.transform(Futures.successfulAsList(nyseData, nasdaqData), new Function<List<StockDataCollection>, StockDataCollection>() {
             @Override
-            public ListenableFuture<StockDataCollection> apply(final List<StockDataCollection> input) throws Exception {
-                return executor.submit(new Callable<StockDataCollection>() {
-                    @Override
-                    public StockDataCollection call() throws Exception {
-                        return mergeMarketData(input);
-                    }
-                });
+            public StockDataCollection apply(final List<StockDataCollection> input) {
+                return mergeMarketData(input);
             }
         });
 
-        ListenableFuture<StockDataCollection> normalizedMarketData = Futures.transform(mergedMarketData, new AsyncFunction<StockDataCollection, StockDataCollection>() {
+        ListenableFuture<StockDataCollection> normalizedMarketData = Futures.transform(mergedMarketData, new Function<StockDataCollection, StockDataCollection>() {
             @Override
-            public ListenableFuture<StockDataCollection> apply(final StockDataCollection input) throws Exception {
-                return executor.submit(new Callable<StockDataCollection>() {
-                    @Override
-                    public StockDataCollection call() throws Exception {
-                        return normalizeData(input);
-                    }
-                });
+            public StockDataCollection apply(final StockDataCollection input) {
+                return normalizeData(input);
             }
         });
 
@@ -72,77 +65,45 @@ public class GuavaListenableFuturesAnalysisEngine extends SequentialAnalysisEngi
             }
         });
 
-        final ListenableFuture<StockDataCollection> normalizedHistoricalData = Futures.transform(fedHistoricalData, new AsyncFunction<StockDataCollection, StockDataCollection>() {
+        final ListenableFuture<StockDataCollection> normalizedHistoricalData = Futures.transform(fedHistoricalData, new Function<StockDataCollection, StockDataCollection>() {
             @Override
-            public ListenableFuture<StockDataCollection> apply(final StockDataCollection input) throws Exception {
-                return executor.submit(new Callable<StockDataCollection>() {
-                    @Override
-                    public StockDataCollection call() throws Exception {
-                        return normalizeData(input);
-                    }
-                });
+            public StockDataCollection apply(final StockDataCollection input) {
+                return normalizeData(input);
             }
         });
 
-        final ListenableFuture<StockAnalysisCollection> analyzedStockData = Futures.transform(normalizedMarketData, new AsyncFunction<StockDataCollection, StockAnalysisCollection>() {
+        final ListenableFuture<StockAnalysisCollection> analyzedStockData = Futures.transform(normalizedMarketData, new Function<StockDataCollection, StockAnalysisCollection>() {
             @Override
-            public ListenableFuture<StockAnalysisCollection> apply(final StockDataCollection input) throws Exception {
-                return executor.submit(new Callable<StockAnalysisCollection>() {
-                    @Override
-                    public StockAnalysisCollection call() throws Exception {
-                        return analyzeData(input);
-                    }
-                });
+            public StockAnalysisCollection apply(final StockDataCollection input) {
+                return analyzeData(input);
             }
         });
 
-        ListenableFuture<MarketModel> modeledMarketData = Futures.transform(analyzedStockData, new AsyncFunction<StockAnalysisCollection, MarketModel>() {
+        ListenableFuture<MarketModel> modeledMarketData = Futures.transform(analyzedStockData, new Function<StockAnalysisCollection, MarketModel>() {
             @Override
-            public ListenableFuture<MarketModel> apply(final StockAnalysisCollection input) throws Exception {
-                return executor.submit(new Callable<MarketModel>() {
-                    @Override
-                    public MarketModel call() throws Exception {
-                        return runModel(input);
-                    }
-                });
+            public MarketModel apply(final StockAnalysisCollection input) {
+                return runModel(input);
             }
         });
 
-        final ListenableFuture<StockAnalysisCollection> analyzedHistoricalData = Futures.transform(normalizedHistoricalData, new AsyncFunction<StockDataCollection, StockAnalysisCollection>() {
+        final ListenableFuture<StockAnalysisCollection> analyzedHistoricalData = Futures.transform(normalizedHistoricalData, new Function<StockDataCollection, StockAnalysisCollection>() {
             @Override
-            public ListenableFuture<StockAnalysisCollection> apply(final StockDataCollection input) throws Exception {
-                return executor.submit(new Callable<StockAnalysisCollection>() {
-                    @Override
-                    public StockAnalysisCollection call() throws Exception {
-                        return analyzeData(input);
-                    }
-                });
+            public StockAnalysisCollection apply(final StockDataCollection input) {
+                return analyzeData(input);
             }
         });
 
-        ListenableFuture<MarketModel> modeledHistoricalData = Futures.transform(analyzedHistoricalData, new AsyncFunction<StockAnalysisCollection, MarketModel>() {
+        ListenableFuture<MarketModel> modeledHistoricalData = Futures.transform(analyzedHistoricalData, new Function<StockAnalysisCollection, MarketModel>() {
             @Override
-            public ListenableFuture<MarketModel> apply(final StockAnalysisCollection input) throws Exception {
-                return executor.submit(new Callable<MarketModel>() {
-                    @Override
-                    public MarketModel call() throws Exception {
-                        return runModel(input);
-                    }
-                });
+            public MarketModel apply(final StockAnalysisCollection input) {
+                return runModel(input);
             }
         });
 
-        ListenableFuture<List<MarketModel>> modeledData = Futures.successfulAsList(modeledMarketData, modeledHistoricalData);
-
-        ListenableFuture<MarketRecommendation> results = Futures.transform(modeledData, new AsyncFunction<List<MarketModel>, MarketRecommendation>() {
+        ListenableFuture<MarketRecommendation> results = Futures.transform(Futures.successfulAsList(modeledMarketData, modeledHistoricalData), new Function<List<MarketModel>, MarketRecommendation>() {
             @Override
-            public ListenableFuture<MarketRecommendation> apply(final List<MarketModel> input) throws Exception {
-                return executor.submit(new Callable<MarketRecommendation>() {
-                    @Override
-                    public MarketRecommendation call() throws Exception {
-                        return compareModels(input);
-                    }
-                });
+            public MarketRecommendation apply(final List<MarketModel> input) {
+                return compareModels(input);
             }
         });
 
