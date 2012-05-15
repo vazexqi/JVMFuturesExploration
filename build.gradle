@@ -1,18 +1,35 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
+apply plugin: 'scala'
 
 sourceCompatibility= JavaVersion.VERSION_1_7
 
 repositories {
   mavenCentral()
+
+  // For Groovy/GPars
   maven {
-    url 'http://snapshots.repository.codehaus.org'
-    url 'http://repository.codehaus.org'
+    url 'http://snapshots.repository.codehaus.org/'
+  }
+
+  // For Scala/Akka
+   maven {
+    url 'http://repo.typesafe.com/typesafe/releases'
   }
 }
 
 dependencies {
   compile group: 'com.google.guava', name: 'guava', version: '12.0'
-  groovy group: 'org.codehaus.gpars', name: 'gpars', version: '1.0-SNAPSHOT'
+
+  // Libraries for Groovy
+  groovy group: 'org.codehaus.gpars', name:'gpars', version:'1.0-SNAPSHOT'
   groovy group: 'org.codehaus.groovy', name: 'groovy-all', version: '1.8.6'
+
+  // Libraries needed to run the scala tools
+  scalaTools group: 'org.scala-lang', name:'scala-compiler', version:'2.9.1'
+  scalaTools group: 'org.scala-lang', name:'scala-library', version:'2.9.1'
+
+  // Libraries needed for scala api
+  compile group: 'org.scala-lang', name:'scala-library', version:'2.9.1'
+  compile group: 'com.typesafe.akka', name:'akka-actor', version:'2.0.1'
 }
