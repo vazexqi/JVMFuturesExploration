@@ -1,5 +1,6 @@
 package edu.illinois.nchen.javaFutures;
 
+import akka.jsr166y.ForkJoinPool;
 import com.google.common.base.Stopwatch;
 import edu.illinois.nchen.base.IAnalysisEngine;
 import edu.illinois.nchen.base.SequentialAnalysisEngine;

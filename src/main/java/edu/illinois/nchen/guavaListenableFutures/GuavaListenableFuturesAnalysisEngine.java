@@ -1,5 +1,6 @@
 package edu.illinois.nchen.guavaListenableFutures;
 
+import akka.jsr166y.ForkJoinPool;
 import com.google.common.base.Function;
 import com.google.common.base.Stopwatch;
 import com.google.common.util.concurrent.*;
@@ -13,7 +14,6 @@ import edu.illinois.nchen.base.businessModels.StockDataCollection;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ForkJoinPool;
 
 public class GuavaListenableFuturesAnalysisEngine extends SequentialAnalysisEngine {
 
