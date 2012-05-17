@@ -26,6 +26,10 @@ repositories {
 dependencies {
   compile group: 'com.google.guava', name: 'guava', version: '12.0'
 
+  // Libraries for Google Caliper
+  // There is no official maven version yet so we stash the libs locally
+  compile fileTree(dir: 'caliper-lib', include: '*.jar')
+
   // Libraries for Groovy
   groovy group: 'org.codehaus.gpars', name:'gpars', version:'1.0-SNAPSHOT'
   groovy group: 'org.codehaus.groovy', name: 'groovy-all', version: '1.8.6'
@@ -43,3 +47,22 @@ dependencies {
   // Libraries for Finagle/Util
   compile group: 'com.twitter', name:'util-core_2.9.1', version:'4.0.1'
 }
+
+// The benchmark requires files from Java, Scala and Groovy. Thus, it requires some
+// setup to get it to compile and run
+sourceSets {
+  benchmark {
+    java {
+      srcDir 'src/main/benchmark'
+    }
+    compileClasspath = sourceSets.main.compileClasspath + sourceSets.main.runtimeClasspath
+  }
+}
+
+sourceSets.benchmark.runtimeClasspath.each { it -> println it }
+
+task(runBenchmark, dependsOn: [compileJava, compileScala, compileGroovy, compileBenchmarkJava], type: JavaExec) {
+  main = 'edu.illinois.nchen.benchmark.FuturesBenchmark'
+  classpath = sourceSets.benchmark.runtimeClasspath + sourceSets.main.runtimeClasspath
+}
+
