@@ -10,7 +10,9 @@ This project aims to explore the different implementations of futures available 
 
 h2. Example Application
 
-The application is derived from the stock exchange application in Chapter 5 of the Microsoft Parallel Programming with .NET "book":http://parallelpatterns.codeplex.com/. As such, this repository is also licensed under the same license, i.e., the Microsoft Patterns and Practices license.
+The application is derived from the stock exchange application in Chapter 5 of the Microsoft Parallel Programming with .NET "book":http://parallelpatterns.codeplex.com/. As such, this repository is also licensed under the same license, i.e., the Microsoft Patterns and Practices license. 
+
+The libraries/jars that are used as part of this project are licensed under their own respective licenses. Please refer to each library/jar for more information.
 
 h2. Building
 
