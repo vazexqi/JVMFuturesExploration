@@ -44,21 +44,27 @@
 
 <p>I wanted a small enough example that it would be easy to write and compare the different APIs. Prior to this, I was a technical reviewer for the book <a href="http://parallelpatterns.codeplex.com/">Parallel Programming with Microsoft .NET</a>. In that book, there was a chapter that focused on the Futures API for .NET. I used that example as the basis of this project. I just stripped out the UI layer to make things simpler. The application simulates reading some data from the stock exchange and comparing it to historical data to make some predictions on purchasing. The application itself does not perform any real calculations but uses busy waiting/thread sleep to simulate activity.</p>
 
+<p>Here's the code snippet to illustrate the core of the application: </p>
+
+<script src="https://gist.github.com/2717020.js"> </script>
+
 <p>By the way, while this project focuses on JVM languages, the .NET book is also worth skimming just to see how Futures work in the .NET framework.</p>
 
 <h2>What license is this work under?</h2>
 
-<p>Since I derived my example from the Parallel Programming with Microsoft .NET book, this project is also licensed under the <a href="http://parallelpatterns.codeplex.com/license">Microsoft patterns &amp; practices license</a>.</p>
+<p>Since I derived my example from the Parallel Programming with Microsoft .NET book, this project is also licensed under the <a href="http://parallelpatterns.codeplex.com/license">Microsoft Patterns &amp; Practices License</a>.</p>
 
 <h2>What did you learn?</h2>
 
-<p>Well, not surprisingly the majority of the APIs were very similar. Unsurprisingly, the Java versions are the most verbose. The two Scala versions are comparable. But the Groovy version is the shortest. Here are the code snippets for the core of the application:</p>
+<p>Well, not surprisingly the majority of the APIs were very similar. All of them offer some way to wait for the results of a Future. All of them offer some way to compose/chain different futures together. And while my simple example does not illustrate this, most of them offer some way to handle errors in a systematic manner.</p>
+
+<p>One very annoying consequence of parallelizing the application is that the parallelized version ends up being a lot longer and more verbose compared to the original sequential version. Unsurprisingly, the Java versions are the most verbose. The two Scala versions are comparable. The Groovy version was not only the shortest but might actually be the easiest to read. Here are the code snippets for the core of the application:</p>
 
 <script src="https://gist.github.com/2716697.js"> </script>
 
 <h2>What about the performance?</h2>
 
-<p>Each library performed comparably. You can find the running times for the application collected through <a href="http://code.google.com/p/caliper/">Google Caliper</a> at <a href="http://bit.ly/LdJE2f">http://bit.ly/LdJE2f</a></p>
+<p>Each library performed comparably. You can find the running times for the application collected through <a href="http://code.google.com/p/caliper/">Google Caliper</a> at <a href="http://bit.ly/LdJE2f">http://bit.ly/LdJE2f</a>. The raw running times are probably meaningless since this is a toy application. What is more interesting in the relative running times.</p>
 
 <p>Here's a screenshot to show you the results as rendered by the Google Caliper benchmark app</p>
 
