@@ -1,18 +1,29 @@
 h2. Futures Exploration
 
-This project aims to explore the different implementations of futures available
-to Java. The following libraries/languages are planned.
+This project aims to explore the different implementations of futures available to Java. The following libraries/languages are investigated.
 
-* Java 7 Futures
-* GPars Dataflow
-* Google Guava Listenable Futures
-* Scala Futures
-* Twitter Finagle Futures
+* "Java":http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Future.html 7 Futures
+* "GPar":http://gpars.codehaus.org/ Dataflow (Groovy)
+* "Google Guava":http://code.google.com/p/guava-libraries/ Listenable Futures (Java)
+* "Akka":http://akka.io/ Futures (Scala)
+* "Twitter Finagle/Util":http://twitter.github.com/finagle/ Futures (Scala)
 
 h2. Example Application
 
-The application is derived from the stock exchange application in Chapter 5 of
-the Microsoft Parallel Programming with .NET book. As such, this repository is
-also licensed under the same license, i.e., the Microsoft Patterns and Practices
-license.
+The application is derived from the stock exchange application in Chapter 5 of the Microsoft Parallel Programming with .NET "book":http://parallelpatterns.codeplex.com/. As such, this repository is also licensed under the same license, i.e., the Microsoft Patterns and Practices license.
 
+h2. Building
+
+Install Gradle (I am using Gradle 1.0-rc-2) and invoke @gradle build@ from the command line. This should fetch the relevant files from their respective Maven directories. 
+
+I belive that the Groovy and Scala tools must also be installed prior to building/running.
+
+h2. Benchmarking
+
+Benchmarking is done using "Google Caliper":http://code.google.com/p/caliper/.
+
+To run the benchmark invoke @gradle runBenchmark@
+
+Sample runs can be found at "http://bit.ly/LdJE2f":http://bit.ly/LdJE2f.  Note that I have not designed the benchmark to be rigorous. I am more interested in the fluency of the API and how to express the different constructs in different languages/APIs. The benchmark is just a quick sanity check to ensure that I am not doing anything wrong -- all implementations should perform roughly the same.
+
+For fairness, all my implementations try to use the newer version of the ForkJoinPool that is part of jsr166y. The jar file is packaged as part of the Akka library. This new ForkJoinPool has several improvements over the existing one in Java 7. Unfortunately, it was not possible to use this new version with GPars easily and thus, it defaults to the version of ForkJoinPool that ships with Java 7.
