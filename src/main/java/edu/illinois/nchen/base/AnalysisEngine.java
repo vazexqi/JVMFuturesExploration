@@ -8,13 +8,13 @@ import java.util.List;
 
 public abstract class AnalysisEngine implements IAnalysisEngine {
 
-    private int speed;
+    private float speed;
 
     public AnalysisEngine() {
-        this(1);
+        this(0.25f);
     }
 
-    public AnalysisEngine(int speed) {
+    public AnalysisEngine(float speed) {
         this.speed = speed;
     }
 
