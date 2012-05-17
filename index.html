@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>JVM Futures/Promises Example by vazexqi</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>JVM Futures/Promises Example</h1>
+        <p>Simple comparison of Future/Promises APIs in Java, GPars, Google Guava, Akka and Finagle/Util.</p>
+        <p class="view"><a href="https://github.com/vazexqi/JVMFuturesExploration">View the Project on GitHub <small>vazexqi/JVMFuturesExploration</small></a></p>
+        <ul>
+          <li><a href="https://github.com/vazexqi/JVMFuturesExploration/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/vazexqi/JVMFuturesExploration/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/vazexqi/JVMFuturesExploration">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>What's this?</h2>
+
+<p>This is a simple and small weekend project to explore the different APIs for Futures/Promises in various JVM languages. Recently, I noticed that many concurrency libraries for the JVM seem to share some similarities in terms of their APIs and constructs. Thus, I decided to explore those APIs and constructs more. I chose to focus on the following main libraries in the three main JVM languages, i.e, Java, Groovy and Scala.</p>
+
+<ul>
+<li>
+<a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Future.html">Java 7</a> Futures</li>
+<li>
+<a href="http://code.google.com/p/guava-libraries/">Google Guava</a> Listenable Futures (Java)</li>
+<li>
+<a href="http://gpars.codehaus.org/">GPars</a> Dataflow (Groovy)</li>
+<li>
+<a href="http://akka.io/">Akka</a> Futures (Scala)</li>
+<li>
+<a href="http://twitter.github.com/finagle/">Twitter</a> Finagle/Util Futures (Scala)</li>
+</ul><h2>What application did you use?</h2>
+
+<p>I wanted a small enough example that it would be easy to write and compare the different APIs. Prior to this, I was a technical reviewer for the book <a href="http://parallelpatterns.codeplex.com/">Parallel Programming with Microsoft .NET</a>. In that book, there was a chapter that focused on the Futures API for .NET. I used that example as the basis of this project. I just stripped out the UI layer to make things simpler.</p>
+
+<p>By the way, while this project focuses on JVM languages, the .NET book is also worth skimming just to see how Futures work in the .NET framework.</p>
+
+<h2>What license is this work under?</h2>
+
+<p>Since I derived my example from the Parallel Programming with Microsoft .NET book, this project is also licensed under the <a href="http://parallelpatterns.codeplex.com/license">Microsoft patterns &amp; practices license</a>.</p>
+
+<h2>What did you learn?</h2>
+
+<p>Well, not surprisingly the majority of the APIs were very similar. Here are the code snippets for the core of the application:</p>
+
+<h2>What about the performance?</h2>
+
+<p>Each library performed comparably. You can find the running times for the application collected through <a href="http://code.google.com/p/caliper/">Google Caliper</a> at <a href="http://bit.ly/LdJE2f">http://bit.ly/LdJE2f</a></p>
+
+<h2>Caveats, limitations</h2>
+
+<p>This is my first experience with some of the libraries so the way I coded the example might not be very idiomatic. In particular, I am not very fluent in Scala so the way I code might not be representative of the way Scala hackers code.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/vazexqi">vazexqi</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
