@@ -13,8 +13,13 @@ repositories {
   }
 
   // For Scala/Akka
-   maven {
+  maven {
     url 'http://repo.typesafe.com/typesafe/releases'
+  }
+
+  // For Twitter Finagle/Util
+  maven {
+    url 'http://maven.twttr.com/'
   }
 }
 
@@ -29,7 +34,12 @@ dependencies {
   scalaTools group: 'org.scala-lang', name:'scala-compiler', version:'2.9.1'
   scalaTools group: 'org.scala-lang', name:'scala-library', version:'2.9.1'
 
-  // Libraries needed for scala api
+  // Libraries needed for Scala
   compile group: 'org.scala-lang', name:'scala-library', version:'2.9.1'
+
+  // Libraries for Akka
   compile group: 'com.typesafe.akka', name:'akka-actor', version:'2.0.1'
+
+  // Libraries for Finagle/Util
+  compile group: 'com.twitter', name:'util-core_2.9.1', version:'4.0.1'
 }
