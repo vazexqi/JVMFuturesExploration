@@ -3,7 +3,7 @@ h2. Futures Exploration
 This project aims to explore the different implementations of futures available to Java. The following libraries/languages are investigated.
 
 * "Java":http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Future.html 7 Futures
-* "GPar":http://gpars.codehaus.org/ Dataflow (Groovy)
+* "GPars":http://gpars.codehaus.org/ Dataflow (Groovy)
 * "Google Guava":http://code.google.com/p/guava-libraries/ Listenable Futures (Java)
 * "Akka":http://akka.io/ Futures (Scala)
 * "Twitter Finagle/Util":http://twitter.github.com/finagle/ Futures (Scala)
