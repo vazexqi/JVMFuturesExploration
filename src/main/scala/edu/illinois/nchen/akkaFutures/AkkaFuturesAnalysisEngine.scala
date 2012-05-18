@@ -8,6 +8,7 @@ import edu.illinois.nchen.base.SequentialAnalysisEngine
 import com.google.common.base.Stopwatch
 
 class AkkaFuturesAnalysisEngine extends SequentialAnalysisEngine {
+  implicit val executor = ExecutionContext.fromExecutorService(new ForkJoinPool())
 
   // NOTES - Current problems/limitations/inconveniences with the current way:
   // 1) I am not a Scala programmer so some of these might not be idiomatic
@@ -15,9 +16,6 @@ class AkkaFuturesAnalysisEngine extends SequentialAnalysisEngine {
   //    are not dependent. e.g., nyseData and nasdaqData can be completed independently but we have to wait for them in
   //    order specified in the of the for-comprehension
   override def doAnalysisParallel() = {
-
-    implicit val executor = ExecutionContext.fromExecutorService(new ForkJoinPool())
-
     val nyseData = Future(loadNyseData())
     val nasdaqData = Future(loadNasdaqData())
 

@@ -12,38 +12,49 @@ import edu.illinois.nchen.twitterFutures.TwitterFuturesAnalysisEngine;
 import java.util.concurrent.ExecutionException;
 
 public class FuturesBenchmark extends SimpleBenchmark {
+
+    IAnalysisEngine javaEngine;
+    IAnalysisEngine guavaEngine;
+    IAnalysisEngine gparsEngine;
+    IAnalysisEngine akkaEngine;
+    IAnalysisEngine twitterEngine;
+
+    @Override
+    protected void setUp() throws Exception {
+        javaEngine = new JavaFuturesAnalysisEngine();
+        guavaEngine = new GuavaListenableFuturesAnalysisEngine();
+        gparsEngine = new GParsDataflowAnalysisEngine();
+        akkaEngine = new AkkaFuturesAnalysisEngine();
+        twitterEngine = new TwitterFuturesAnalysisEngine();
+    }
+
     public void timeJavaFutures(int reps) throws ExecutionException, InterruptedException {
         for (int i = 0; i < reps; i++) {
-            IAnalysisEngine engine = new JavaFuturesAnalysisEngine();
-            engine.doAnalysisParallel();
+            javaEngine.doAnalysisParallel();
         }
     }
 
     public void timeGuavaListenableFutures(int reps) throws ExecutionException, InterruptedException {
         for (int i = 0; i < reps; i++) {
-            IAnalysisEngine engine = new GuavaListenableFuturesAnalysisEngine();
-            engine.doAnalysisParallel();
+            guavaEngine.doAnalysisParallel();
         }
     }
 
     public void timeGParsDataflow(int reps) throws ExecutionException, InterruptedException {
         for (int i = 0; i < reps; i++) {
-            IAnalysisEngine engine = new GParsDataflowAnalysisEngine();
-            engine.doAnalysisParallel();
+            gparsEngine.doAnalysisParallel();
         }
     }
 
     public void timeAkkaFutures(int reps) throws ExecutionException, InterruptedException {
         for (int i = 0; i < reps; i++) {
-            IAnalysisEngine engine = new AkkaFuturesAnalysisEngine();
-            engine.doAnalysisParallel();
+            akkaEngine.doAnalysisParallel();
         }
     }
 
     public void timeTwitterFutures(int reps) throws ExecutionException, InterruptedException {
         for (int i = 0; i < reps; i++) {
-            IAnalysisEngine engine = new TwitterFuturesAnalysisEngine();
-            engine.doAnalysisParallel();
+            twitterEngine.doAnalysisParallel();
         }
     }
 

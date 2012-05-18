@@ -8,14 +8,12 @@ import com.twitter.util.FuturePool
 
 
 class TwitterFuturesAnalysisEngine extends SequentialAnalysisEngine {
+  val executor = FuturePool(new ForkJoinPool())
 
   // NOTES - Current problems/limitations/inconveniences with the current way:
   // 1) There is very little documentation for how to use Futures asynchronously so what I am doing with FuturePool
   //   might be wrong
   override def doAnalysisParallel() = {
-
-    val executor = FuturePool(new ForkJoinPool())
-
     val nyseData = executor(loadNyseData())
     val nasdaqData = executor(loadNasdaqData())
 
