@@ -16,9 +16,9 @@ The libraries/jars that are used as part of this project are licensed under thei
 
 h2. Building
 
-Install Gradle (I am using Gradle 1.0-rc-2) and invoke @gradle build@ from the command line. This should fetch the relevant files from their respective Maven directories. 
+Run @./gradlew build@. This should fetch the relevant files from their respective Maven directories including the necessary version of Gradle.
 
-I belive that the Groovy and Scala tools must also be installed prior to building/running.
+This might not be necessary, but I believe that the Groovy and Scala tools must also be installed prior to building/running.
 
 h2. Benchmarking
 

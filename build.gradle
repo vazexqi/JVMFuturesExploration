@@ -4,6 +4,11 @@ apply plugin: 'scala'
 
 sourceCompatibility= JavaVersion.VERSION_1_7
 
+// See http://gradle.org/docs/current/userguide/gradle_wrapper.html
+task wrap(type:Wrapper, description:"create a gradlew") {
+    gradleVersion = '1.0-rc-3'
+}
+
 repositories {
   mavenCentral()
 
